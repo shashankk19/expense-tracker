@@ -1,9 +1,9 @@
 <template>
-  <ExpenseForm />
+  <add-payment></add-payment>
 </template>
 
 <script setup>
-import ExpenseForm from '../components/ExpenseForm.vue'
+import AddPayment from '../components/AddPayment.vue'
 </script>
 
 <style></style>
