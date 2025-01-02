@@ -1,21 +1,35 @@
 <template>
-  <li v-for="expense in expenseList" :key="expense.id" class="expense-item">
-    <p><strong>Name:</strong> {{ expense.name }}</p>
-    <p><strong>Amount:</strong> ${{ expense.amount }}</p>
-    <p><strong>Date:</strong> {{ expense.date }}</p>
-    <p><strong>Category:</strong> {{ expense.category }}</p>
-    <p><strong>Payment Method:</strong> {{ expense.paymentMethod }}</p>
-  </li>
+  <div>
+    <v-card
+      v-for="expense in expenseStore.expenses"
+      :key="expense.id"
+      class="expense-item margin-top-10"
+    >
+      <v-card-title>{{ expense.title }}</v-card-title>
+      <v-card-text>
+        <p>Date: {{ expense.date }}</p>
+        <p>Amount: {{ expense.amount }}</p>
+        <p>Category: {{ expense.category }}</p>
+        <p>Payment Method: {{ expense.paymentMethod }}</p>
+      </v-card-text>
+    </v-card>
+  </div>
 </template>
 
 <script setup>
 import { onMounted } from 'vue'
+import { useExpenseStore } from '../stores/ExpenseStore.js'
+import { useAuthStore } from '@/stores/Auth.js'
 
-const props = defineProps({
-  expenseList: Array,
-})
-onMounted(() => {
-  console.log(props.expenseList)
+const expenseStore = useExpenseStore()
+const authStore = useAuthStore()
+
+onMounted(async () => {
+  try {
+    await expenseStore.fetchExpenses(authStore.currentUserId, authStore.authToken)
+  } catch (error) {
+    console.log(error)
+  }
 })
 </script>
 

@@ -39,13 +39,31 @@
 <script setup>
 import { ref } from 'vue'
 import { usePaymentStore } from '../stores/PaymentMethod.js'
+import { useAuthStore } from '../stores/Auth.js'
+import axios from 'axios'
 const dialog = ref(false)
 const payment = ref('')
 const paymentStore = usePaymentStore()
-const savePayment = () => {
-  console.log(payment.value)
-  paymentStore.addPaymentMethod(payment.value)
-  dialog.value = false
-  console.log(paymentStore.allPaymentMethods)
+const authStore = useAuthStore()
+const savePayment = async () => {
+  try {
+    const response = await axios.post(
+      'http://192.168.1.20:8090/paymentMethods/add',
+      {
+        paymentMethod: payment.value,
+        uid: authStore.currentUserId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${authStore.authToken}`, // Authorization header
+        },
+      },
+    )
+    paymentStore.addPaymentMethod(payment.value)
+    dialog.value = false
+    console.log(paymentStore.allPaymentMethods)
+  } catch (error) {
+    console.error(error)
+  }
 }
 </script>

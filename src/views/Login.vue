@@ -52,6 +52,8 @@ const login = async () => {
     const user = {
       name: response.data.fullname,
       email: response.data.email,
+      username: response.data.username,
+      id: response.data.uid,
     }
     authStore.setToken(response.data.token)
     authStore.setUser(user)
