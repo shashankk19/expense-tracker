@@ -21,4 +21,9 @@ export const useAuthStore = defineStore('AuthStore', {
       this.token = token
     },
   },
+  persist: {
+    key: 'auth', // Key for localStorage/sessionStorage
+    storage: window.localStorage, // Use localStorage or sessionStorage
+    paths: ['token', 'loggedUser'], // State properties to persist
+  },
 })

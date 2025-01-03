@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { all } from 'axios'
 import { defineStore } from 'pinia'
 
 export const useExpenseStore = defineStore('ExpenseStore', {
@@ -27,5 +27,8 @@ export const useExpenseStore = defineStore('ExpenseStore', {
   },
   getters: {
     allExpenses: (state) => state.expenses,
+    totalExpenses: (state) => {
+      return state.expenses.reduce((acc, expense) => acc + expense.amount, 0)
+    },
   },
 })

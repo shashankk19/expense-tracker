@@ -3,7 +3,7 @@
     <v-dialog v-model="dialog" max-width="600">
       <template v-slot:activator="{ props: activatorProps }">
         <v-btn
-          class="text-none font-weight-bold"
+          class="text-none font-weight-regular"
           prepend-icon="mdi-plus"
           text="Add Expense"
           variant="elevated"
@@ -119,8 +119,12 @@ const saveExpense = async () => {
       },
     )
     console.log(response.data)
-    expenseStore.saveExpense(expense)
     dialog.value = false
+    title.value = ''
+    date.value = ''
+    amount.value = ''
+    category.value = ''
+    paymentMethod.value = ''
   } catch (error) {
     console.error(error)
   }
