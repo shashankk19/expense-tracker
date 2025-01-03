@@ -8,6 +8,7 @@
           text="Add Payment Method"
           variant="elevated"
           v-bind="activatorProps"
+          elevation="10"
         ></v-btn>
       </template>
 

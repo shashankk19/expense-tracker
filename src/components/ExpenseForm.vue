@@ -8,6 +8,7 @@
           text="Add Expense"
           variant="elevated"
           v-bind="activatorProps"
+          elevation="10"
         ></v-btn>
       </template>
 
